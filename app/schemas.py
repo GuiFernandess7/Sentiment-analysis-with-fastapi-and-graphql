@@ -1,7 +1,7 @@
 import strawberry
 from strawberry.fastapi import GraphQLRouter
 import datetime
-from .db_functions import get_data, add_data
+from .db_functions import get_data, add_data, delete_data
 
 @strawberry.type
 class HistoryDataSchema:
@@ -19,6 +19,7 @@ class Query:
 @strawberry.type
 class Mutation:
     add_data: HistoryDataSchema = strawberry.field(resolver=add_data)
+    delete_data: HistoryDataSchema = strawberry.field(resolver=delete_data)
 
 schema = strawberry.Schema(
     query=Query,

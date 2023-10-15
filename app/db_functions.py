@@ -30,3 +30,12 @@ def add_data(sentence: str):
         session.refresh(history_data) 
     
     return history_data
+
+def delete_data(id: int):
+    history_data = session.get(HistoryData, id)
+
+    if history_data:
+        session.delete(history_data)
+        session.commit()
+        return history_data
+    return history_data
