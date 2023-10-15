@@ -1,6 +1,7 @@
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 from fastapi.responses import JSONResponse
+from .schemas import graphql_app
 
 from . import models
 from .database import SessionLocal, engine
@@ -12,6 +13,8 @@ app = FastAPI()
 @app.get('/')
 def welcome():
     return JSONResponse({"message": "Welcome!"})
+
+app.include_router(graphql_app, prefix='/graphql')
 
 if __name__ == "__main__":
     import uvicorn
