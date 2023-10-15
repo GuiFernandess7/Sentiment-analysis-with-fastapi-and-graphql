@@ -1,20 +1,16 @@
-from fastapi import Depends, FastAPI, HTTPException
-from sqlalchemy.orm import Session
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI
 from .schemas import graphql_app
 
 from . import models
-from .database import SessionLocal, engine
+from .database import engine
 
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
-
-@app.get('/')
-def welcome():
-    return JSONResponse({"message": "Welcome!"})
-
-app.include_router(graphql_app, prefix='/graphql')
+app = FastAPI(title='FastAPI MySQL Docker',
+        description='Test Run FastAPI and MySQL in Docker',
+        version='1.0'
+)
+app.include_router(graphql_app, prefix='/app')
 
 if __name__ == "__main__":
     import uvicorn

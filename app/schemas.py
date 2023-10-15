@@ -1,11 +1,10 @@
-from typing import Optional
 import strawberry
 from strawberry.fastapi import GraphQLRouter
 import datetime
-from .db_functions import get_data
+from .db_functions import get_data, add_data
 
 @strawberry.type
-class SentimentSchema:
+class HistoryDataSchema:
     id: int
     created_at: datetime.datetime
     sentences: str
@@ -15,9 +14,14 @@ class SentimentSchema:
 
 @strawberry.type
 class Query:
-    get_data: list[SentimentSchema] = strawberry.field(resolver=get_data)
+    get_data: list[HistoryDataSchema] = strawberry.field(resolver=get_data)
+
+@strawberry.type
+class Mutation:
+    add_data: HistoryDataSchema = strawberry.field(resolver=add_data)
 
 schema = strawberry.Schema(
-    query=Query)
+    query=Query,
+    mutation=Mutation)
 
 graphql_app = GraphQLRouter(schema)

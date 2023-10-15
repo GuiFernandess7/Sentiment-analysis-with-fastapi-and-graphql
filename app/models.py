@@ -1,10 +1,9 @@
 from sqlalchemy import Column, Integer, String, TIMESTAMP, FLOAT
-from sqlalchemy.orm import relationship
 
 from .database import Base
 
-class SentimentData(Base):
-    __tablename__ = "sentiment_data"
+class HistoryData(Base):
+    __tablename__ = "history_data"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     created_at = Column(TIMESTAMP, nullable=False)
